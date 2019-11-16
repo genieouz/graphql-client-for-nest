@@ -1,0 +1,11 @@
+mutation AddTalent($userInput: UserInput!, $talentInput: TalentInput!) {
+  addTalent(userInput: $userInput, talentInput: $talentInput) {
+    _id
+    prenom
+    nom
+    user {
+      username
+      role
+    }
+  }
+}

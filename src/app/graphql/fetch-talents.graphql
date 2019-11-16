@@ -1,0 +1,11 @@
+query FetchTalents {
+  fetchTalents {
+    _id
+    prenom
+    nom
+    user {
+      username
+      role
+    }
+  }
+}
