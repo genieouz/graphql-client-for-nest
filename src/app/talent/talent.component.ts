@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 import { FetchTalentsGQL } from './../graphql/generated/graphql';
 import { Component, OnInit } from '@angular/core';
 import { catchError, map } from "rxjs/operators";
@@ -8,7 +10,13 @@ import { catchError, map } from "rxjs/operators";
   styleUrls: ["./talent.component.css"]
 })
 export class TalentComponent implements OnInit {
-  constructor(private fetchTalentsGQL: FetchTalentsGQL) {}
+  myCount: Observable<number>;
+  constructor(
+    private fetchTalentsGQL: FetchTalentsGQL,
+    private store: Store<{ count: number }>
+  ) {
+    this.myCount = store.pipe(select("count"));
+  }
 
   ngOnInit() {}
 
@@ -18,14 +26,13 @@ export class TalentComponent implements OnInit {
     //    },
     //    err => {
     //      /*TODO: add error handling after back end will be ready*/
-         
-    //  );
-    this.fetchTalentsGQL
-      .watch()
-      .valueChanges.pipe(map(result => {
-        console.log(result.data.fetchTalents);
-        return result.data.fetchTalents
 
-      }));
+    //  );
+    this.fetchTalentsGQL.watch().valueChanges.pipe(
+      map(result => {
+        console.log(result.data.fetchTalents);
+        return result.data.fetchTalents;
+      })
+    );
   }
 }

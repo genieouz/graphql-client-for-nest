@@ -1,4 +1,4 @@
-import { FetchTalentsGQL, AddTalentGQL } from './graphql/generated/graphql';
+import { FetchTalentsGQL, AddTalentGQL, UpdateTalentGQL } from './graphql/generated/graphql';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = "graphql-client";
-  constructor(private fetchTalentsGQL: FetchTalentsGQL, private addTalentGQL: AddTalentGQL) {}
+  constructor(private fetchTalentsGQL: FetchTalentsGQL, private addTalentGQL: AddTalentGQL, private updateTalentGQL: UpdateTalentGQL) {}
   fetchTalents() {
-    this.fetchTalentsGQL.watch().valueChanges.subscribe(talents => {
-      console.log(talents.data.fetchTalents);
+    this.fetchTalentsGQL.watch().valueChanges.subscribe(results => {
+      console.log(results.data.fetchTalents);
     });
   }
 

@@ -114,6 +114,24 @@ export type FetchTalentsQuery = (
   )> }
 );
 
+export type UpdateTalentMutationVariables = {
+  talentInput: TalentInput,
+  id: Scalars['ID']
+};
+
+
+export type UpdateTalentMutation = (
+  { __typename?: 'Mutation' }
+  & { updateTalent: (
+    { __typename?: 'Talent' }
+    & Pick<Talent, '_id' | 'prenom' | 'nom'>
+    & { user: (
+      { __typename?: 'User' }
+      & Pick<User, 'username' | 'role'>
+    ) }
+  ) }
+);
+
 
 export const AddTalentDocument = gql`
     mutation AddTalent($userInput: UserInput!, $talentInput: TalentInput!) {
@@ -155,5 +173,26 @@ export const FetchTalentsDocument = gql`
   })
   export class FetchTalentsGQL extends Apollo.Query<FetchTalentsQuery, FetchTalentsQueryVariables> {
     document = FetchTalentsDocument;
+    
+  }
+export const UpdateTalentDocument = gql`
+    mutation UpdateTalent($talentInput: TalentInput!, $id: ID!) {
+  updateTalent(talentInput: $talentInput, id: $id) {
+    _id
+    prenom
+    nom
+    user {
+      username
+      role
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateTalentGQL extends Apollo.Mutation<UpdateTalentMutation, UpdateTalentMutationVariables> {
+    document = UpdateTalentDocument;
     
   }

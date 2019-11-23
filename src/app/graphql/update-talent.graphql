@@ -1,0 +1,11 @@
+mutation UpdateTalent($talentInput: TalentInput!, $id: ID!) {
+  updateTalent(talentInput: $talentInput, id: $id) {
+    _id
+    prenom
+    nom
+    user {
+      username
+      role
+    }
+  }
+}
